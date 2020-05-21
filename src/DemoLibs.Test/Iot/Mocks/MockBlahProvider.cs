@@ -3,13 +3,13 @@ using Demos.Iot.Providers;
 
 namespace Demos.Iot.Mocks
 {
-    public class MockBlahProvider : IActionInfoProvider
+    public class MockBlahProvider : ICommandLocateProvider
     {
-        public IList<ActionInfo> ImplActionInfos()
+        public IList<CommandLocate> ImplCommandLocates()
         {
-            var actionInfos = new List<ActionInfo>();
-            actionInfos.Add(ActionInfo.Create("Blah", "Light", "On"));
-            actionInfos.Add(ActionInfo.Create("Blah", "Light", "Off"));
+            var actionInfos = new List<CommandLocate>();
+            actionInfos.Add(CommandLocate.Create("Blah", "Light", "On"));
+            actionInfos.Add(CommandLocate.Create("Blah", "Light", "Off"));
             return actionInfos;
         }
     }

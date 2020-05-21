@@ -16,13 +16,14 @@ namespace Demos.Iot
     {
         string Action { get; set; }
     }
-    public interface IActionLocate : IManufacturerName, IDeviceName, IActionName
+
+    public interface ICommandLocate : IManufacturerName, IDeviceName, IActionName
     {
     }
 
-    public static class ActionLocateExtensions
+    public static class CommandLocateExtensions
     {
-        public static string GetLocateKey(this IActionLocate locate)
+        public static string GetLocateKey(this ICommandLocate locate)
         {
             if (locate == null)
             {

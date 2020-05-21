@@ -4,35 +4,35 @@ using System.Linq;
 
 namespace Demos.Iot.Discovers
 {
-    public interface IActionInfoDiscover
+    public interface ICommandLocateDiscover
     {
-        IList<ActionInfo> GetActionInfos(GetActionInfosArgs args);
+        IList<CommandLocate> GetCommandLocates(GetCommandLocatesArgs args);
     }
 
-    public class GetActionInfosArgs : IActionLocate
+    public class GetCommandLocatesArgs : ICommandLocate
     {
         public string Manufacturer { get; set; }
         public string Device { get; set; }
         public string Action { get; set; }
     }
 
-    public class ActionInfoDiscover : IActionInfoDiscover
+    public class CommandLocateDiscover : ICommandLocateDiscover
     {
-        private readonly ActionInfoRegistry _registry;
+        private readonly CommandLocateRegistry _registry;
 
-        public ActionInfoDiscover(ActionInfoRegistry registry)
+        public CommandLocateDiscover(CommandLocateRegistry registry)
         {
             _registry = registry ?? throw new ArgumentNullException(nameof(registry));
         }
 
-        public IList<ActionInfo> GetActionInfos(GetActionInfosArgs args)
+        public IList<CommandLocate> GetCommandLocates(GetCommandLocatesArgs args)
         {
             //if (args == null)
             //{
             //    throw new ArgumentNullException(nameof(args));
             //}
 
-            var actionInfos = _registry.ActionInfos.Values.AsEnumerable();
+            var actionInfos = _registry.CommandLocates.Values.AsEnumerable();
             if (args == null)
             {
                 return actionInfos.ToList();

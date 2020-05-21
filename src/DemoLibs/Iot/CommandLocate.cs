@@ -2,8 +2,7 @@
 
 namespace Demos.Iot
 {
-
-    public class ActionInfo : IActionLocate
+    public class CommandLocate : ICommandLocate
     {
         public string Manufacturer { get; set; }
         public string Device { get; set; }
@@ -11,7 +10,7 @@ namespace Demos.Iot
 
         public string LocateKey => this.GetLocateKey();
 
-        public static ActionInfo Create(string manufacturer, string device, string action)
+        public static CommandLocate Create(string manufacturer, string device, string action)
         {
             if (string.IsNullOrWhiteSpace(manufacturer))
             {
@@ -26,7 +25,7 @@ namespace Demos.Iot
                 throw new ArgumentNullException(nameof(action));
             }
 
-            return new ActionInfo()
+            return new CommandLocate()
             {
                 Manufacturer = manufacturer,
                 Device = device,

@@ -5,10 +5,10 @@ namespace Demos.Iot.Mocks
 {
     public class MockPluginLoader : IPluginLoader
     {
-        public IList<IActionInfoProvider> LoadProviders()
+        public IList<ICommandLocateProvider> LoadProviders()
         {
             //todo: use di container scan and find all providers!
-            var actionInfoProviders = new List<IActionInfoProvider>();
+            var actionInfoProviders = new List<ICommandLocateProvider>();
             actionInfoProviders.Add(new MockFooProvider());
             actionInfoProviders.Add(new MockBlahProvider());
             return actionInfoProviders;

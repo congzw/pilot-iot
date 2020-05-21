@@ -6,12 +6,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Demos.Iot
 {
     [TestClass]
-    public class ActionInfoRegistrySpec
+    public class CommandLocateRegistrySpec
     {
         [TestMethod]
         public void Init_Null_Should_Throws()
         {
-            var actionInfoRegistry = new ActionInfoRegistry();
+            var actionInfoRegistry = new CommandLocateRegistry();
             AssertHelper.ShouldThrows<ArgumentNullException>(() =>
             {
                 actionInfoRegistry.Init(null);
@@ -21,17 +21,17 @@ namespace Demos.Iot
         [TestMethod]
         public void Init_NotInvoke_Should_Empty()
         {
-            var actionInfoRegistry = new ActionInfoRegistry();
-            actionInfoRegistry.ActionInfos.Count.ShouldEqual(0);
+            var actionInfoRegistry = new CommandLocateRegistry();
+            actionInfoRegistry.CommandLocates.Count.ShouldEqual(0);
         }
         
         [TestMethod]
         public void Init_WithProvider_Should_Ok()
         {
-            var actionInfoRegistry = new ActionInfoRegistry();
+            var actionInfoRegistry = new CommandLocateRegistry();
             actionInfoRegistry.Init(new MockPluginLoader());
-            actionInfoRegistry.ActionInfos.LogJson();
-            actionInfoRegistry.ActionInfos.Count.ShouldEqual(6);
+            actionInfoRegistry.CommandLocates.LogJson();
+            actionInfoRegistry.CommandLocates.Count.ShouldEqual(6);
         }
     }
 }
