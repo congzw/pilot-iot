@@ -11,15 +11,18 @@ namespace Demos.Iot
             _handlers = handlers;
         }
 
-        public void Dispatch(Command cmd, object context)
+        public CommandResult Dispatch(ICommand cmd, object context)
         {
             foreach (var handler in _handlers)
             {
                 if (handler.Command.GetLocateKey() == cmd.GetLocateKey())
                 {
-                    handler.Handle(cmd, context);
+                    var commandResult = handler.Handle(context);
+                    return commandResult;
                 }
             }
+
+            return CommandResult.FailResult("Not find handler for: " + cmd, context);
         }
     }
 }

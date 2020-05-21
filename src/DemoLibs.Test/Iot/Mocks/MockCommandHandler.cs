@@ -9,9 +9,9 @@
 
         public Command Command { get; }
 
-        public virtual void Handle(Command cmd, object context)
+        public virtual CommandResult Handle(object context)
         {
-            MockCommandInvoke.Invoke(cmd, context);
+            return MockCommandInvoke.Invoke(Command, context);
         }
     }
 }

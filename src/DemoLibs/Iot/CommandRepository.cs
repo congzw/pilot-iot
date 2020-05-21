@@ -9,7 +9,7 @@ namespace Demos.Iot
         IList<Command> GetCommands(GetCommandsArgs args);
     }
 
-    public class GetCommandsArgs : ICommandKey
+    public class GetCommandsArgs : ICommand
     {
         public string Manufacturer { get; set; }
         public string Device { get; set; }

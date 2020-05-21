@@ -4,9 +4,11 @@ namespace Demos.Iot.Mocks
 {
     public class MockCommandInvoke
     {
-        public static void Invoke(Command command, params object[] args)
+        public static CommandResult Invoke(Command command, object args)
         {
-            Trace.WriteLine(string.Format("invoke {0} success with context {1}", command.GetLocateKey(), args));
+            var successResult = CommandResult.SuccessResult(string.Format("{0} => success invoked with context '{1}'", command.GetLocateKey(), args));
+            Trace.WriteLine("<<mock invoke complete!>>");
+            return successResult;
         }
     }
 }

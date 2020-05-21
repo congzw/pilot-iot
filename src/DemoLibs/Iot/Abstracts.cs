@@ -17,13 +17,13 @@ namespace Demos.Iot
         string Action { get; set; }
     }
 
-    public interface ICommandKey : IManufacturerName, IDeviceName, IActionName
+    public interface ICommand : IManufacturerName, IDeviceName, IActionName
     {
     }
 
-    public static class CommandKeyExtensions
+    public static class CommandLocateExtensions
     {
-        public static string GetLocateKey(this ICommandKey locate)
+        public static string GetLocateKey(this ICommand locate)
         {
             if (locate == null)
             {
@@ -33,20 +33,12 @@ namespace Demos.Iot
         }
     }
     
-    public interface ICommandContext : ICommandKey
-    {
-        object Context { get; set; }
-    }
-
-    public class Command : ICommandContext
+    public class Command : ICommand
     {
         public string Manufacturer { get; set; }
         public string Device { get; set; }
         public string Action { get; set; }
-        public string LocateKey => this.GetLocateKey();
-
-        public object Context { get; set; }
-
+        
         public static Command Create(string manufacturer, string device, string action)
         {
             if (string.IsNullOrWhiteSpace(manufacturer))
@@ -74,6 +66,6 @@ namespace Demos.Iot
     public interface ICommandHandler
     {
         Command Command { get; }
-        void Handle(Command cmd, object context);
+        CommandResult Handle(object context);
     }
 }
