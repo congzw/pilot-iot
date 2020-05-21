@@ -38,17 +38,17 @@ namespace Demos.Iot.Discovers
                 return actionInfos.ToList();
             }
 
-            if (string.IsNullOrWhiteSpace(args.Manufacturer))
+            if (!string.IsNullOrWhiteSpace(args.Manufacturer))
             {
                 actionInfos = actionInfos.Where(x => x.Manufacturer.Equals(args.Manufacturer, StringComparison.OrdinalIgnoreCase));
             }
 
-            if (string.IsNullOrWhiteSpace(args.Device))
+            if (!string.IsNullOrWhiteSpace(args.Device))
             {
                 actionInfos = actionInfos.Where(x => x.Device.Equals(args.Device, StringComparison.OrdinalIgnoreCase));
             }
 
-            if (string.IsNullOrWhiteSpace(args.Action))
+            if (!string.IsNullOrWhiteSpace(args.Action))
             {
                 actionInfos = actionInfos.Where(x => x.Action.Equals(args.Action, StringComparison.OrdinalIgnoreCase));
             }
