@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using Demos.Iot.Providers;
+using Demos.Iot.Commands;
+using Demos.Iot.Plugin;
 
 namespace Demos.Iot
 {
-    public class CommandLocateRegistry
+    public class CommandRegistry
     {
-        public CommandLocateRegistry()
+        public CommandRegistry()
         {
-            CommandLocates = new Dictionary<string, CommandLocate>(StringComparer.OrdinalIgnoreCase);
+            Commands = new Dictionary<string, Command>(StringComparer.OrdinalIgnoreCase);
         }
 
-        public CommandLocateRegistry Init(IPluginLoader pluginLoader)
+        public CommandRegistry Init(ICommandProviderLoader pluginLoader)
         {
             if (pluginLoader == null)
             {
@@ -26,30 +27,30 @@ namespace Demos.Iot
 
             foreach (var provider in providers)
             {
-                var implCommandLocates = provider.ImplCommandLocates();
-                foreach (var implCommandLocate in implCommandLocates)
+                var commandKeys = provider.SupportCommands();
+                foreach (var commandKey in commandKeys)
                 {
-                    Register(implCommandLocate);
+                    Register(commandKey);
                 }
             }
             return this;
         }
 
-        public IDictionary<string, CommandLocate> CommandLocates { get; set; }
+        public IDictionary<string, Command> Commands { get; set; }
 
-        public CommandLocateRegistry Register(CommandLocate locate)
+        public CommandRegistry Register(Command locate)
         {
             if (locate == null)
             {
                 throw new ArgumentNullException(nameof(locate));
             }
 
-            if (CommandLocates.ContainsKey(locate.LocateKey))
+            if (Commands.ContainsKey(locate.LocateKey))
             {
                 throw new InvalidOperationException("command registered already: " + locate.LocateKey);
             }
 
-            CommandLocates[locate.LocateKey] = locate;
+            Commands[locate.LocateKey] = locate;
             return this;
         }
     }

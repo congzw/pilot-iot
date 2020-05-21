@@ -2,7 +2,7 @@
 {
     public interface ICommandHandler
     {
-        bool ShouldHandle(ICommand cmd);
+        ICommand Command { get;}
         void Handle(ICommand cmd);
     }
 }

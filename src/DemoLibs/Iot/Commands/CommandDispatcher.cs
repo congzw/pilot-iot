@@ -15,7 +15,7 @@ namespace Demos.Iot.Commands
         {
             foreach (var handler in _handlers)
             {
-                if (handler.ShouldHandle(cmd))
+                if (handler.Command.GetLocateKey() == cmd.GetLocateKey())
                 {
                     handler.Handle(cmd);
                 }

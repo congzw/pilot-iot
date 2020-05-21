@@ -1,38 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Demos.Iot.Commands;
 
 namespace Demos.Iot.Discovers
 {
-    public interface ICommandLocateDiscover
+    public interface ICommandDiscover
     {
-        IList<CommandLocate> GetCommandLocates(GetCommandLocatesArgs args);
+        IList<Command> GetCommands(GetCommandsArgs args);
     }
 
-    public class GetCommandLocatesArgs : ICommandLocate
+    public class GetCommandsArgs : ICommandKey
     {
         public string Manufacturer { get; set; }
         public string Device { get; set; }
         public string Action { get; set; }
     }
 
-    public class CommandLocateDiscover : ICommandLocateDiscover
+    public class CommandDiscover : ICommandDiscover
     {
-        private readonly CommandLocateRegistry _registry;
+        private readonly CommandRegistry _registry;
 
-        public CommandLocateDiscover(CommandLocateRegistry registry)
+        public CommandDiscover(CommandRegistry registry)
         {
             _registry = registry ?? throw new ArgumentNullException(nameof(registry));
         }
 
-        public IList<CommandLocate> GetCommandLocates(GetCommandLocatesArgs args)
+        public IList<Command> GetCommands(GetCommandsArgs args)
         {
             //if (args == null)
             //{
             //    throw new ArgumentNullException(nameof(args));
             //}
 
-            var actionInfos = _registry.CommandLocates.Values.AsEnumerable();
+            var actionInfos = _registry.Commands.Values.AsEnumerable();
             if (args == null)
             {
                 return actionInfos.ToList();

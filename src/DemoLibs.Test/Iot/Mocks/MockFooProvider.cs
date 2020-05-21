@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
-using Demos.Iot.Providers;
+using Demos.Iot.Commands;
+using Demos.Iot.Plugin;
 
 namespace Demos.Iot.Mocks
 {
-    public class MockFooProvider : ICommandLocateProvider
+    public class MockFooProvider : ICommandProvider
     {
-        public IList<CommandLocate> ImplCommandLocates()
+        public IList<Command> SupportCommands()
         {
-            var actionInfos = new List<CommandLocate>();
-            actionInfos.Add(CommandLocate.Create("Foo", "Light", "On"));
-            actionInfos.Add(CommandLocate.Create("Foo", "Light", "Off"));
-            actionInfos.Add(CommandLocate.Create("Foo", "Curtain", "Open"));
-            actionInfos.Add(CommandLocate.Create("Foo", "Curtain", "Close"));
-            return actionInfos;
+            var commands = new List<Command>();
+            commands.Add(Command.Create("Foo", "Light", "On"));
+            commands.Add(Command.Create("Foo", "Light", "Off"));
+            commands.Add(Command.Create("Foo", "Curtain", "Open"));
+            commands.Add(Command.Create("Foo", "Curtain", "Close"));
+            return commands;
         }
     }
 }

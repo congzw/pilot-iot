@@ -8,7 +8,7 @@ namespace Demos.Iot.Commands
 {
     public interface ICommandService
     {
-        Command CreateCommand(ICommandLocate locate);
+        Command CreateCommand(ICommand locate);
     }
 
     public class CommandFactory
