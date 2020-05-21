@@ -3,4 +3,4 @@
 ## todo list
 
 - init projects
-- 
+- support manufacturer device action discovery

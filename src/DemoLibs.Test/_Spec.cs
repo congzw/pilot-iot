@@ -2,7 +2,7 @@
 
 namespace Demos
 {
-    [TestClass]
+    //[TestClass]
     public class _Spec
     {
         [TestMethod]
