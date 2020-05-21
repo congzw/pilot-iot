@@ -1,21 +1,20 @@
-﻿using Demos.Iot.Discovers;
-using Demos.Iot.Mocks;
+﻿using Demos.Iot.Mocks;
 using Demos._Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Demos.Iot
 {
     [TestClass]
-    public class CommandDiscoverSpec
+    public class CommandRepositorySpec
     {
-        private CommandDiscover _actionInfoDiscover;
+        private CommandRepository _actionInfoDiscover;
 
         [TestInitialize]
         public void PrepareTest()
         {
             var actionInfoRegistry = new CommandRegistry();
             actionInfoRegistry.Init(new MockPluginLoader());
-            _actionInfoDiscover = new CommandDiscover(actionInfoRegistry);
+            _actionInfoDiscover = new CommandRepository(actionInfoRegistry);
         }
 
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Demos.Iot.Commands
+namespace Demos.Iot
 {
     public class CommandDispatcher
     {
@@ -11,13 +11,13 @@ namespace Demos.Iot.Commands
             _handlers = handlers;
         }
 
-        public void Dispatch(ICommand cmd)
+        public void Dispatch(Command cmd, object context)
         {
             foreach (var handler in _handlers)
             {
                 if (handler.Command.GetLocateKey() == cmd.GetLocateKey())
                 {
-                    handler.Handle(cmd);
+                    handler.Handle(cmd, context);
                 }
             }
         }

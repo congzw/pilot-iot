@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Demos.Iot.Commands;
 using Demos.Iot.Plugin;
 
 namespace Demos.Iot
@@ -12,45 +11,42 @@ namespace Demos.Iot
             Commands = new Dictionary<string, Command>(StringComparer.OrdinalIgnoreCase);
         }
 
-        public CommandRegistry Init(ICommandProviderLoader pluginLoader)
+        public CommandRegistry Init(IPluginLoader pluginLoader)
         {
             if (pluginLoader == null)
             {
                 throw new ArgumentNullException(nameof(pluginLoader));
             }
 
-            var providers = pluginLoader.LoadProviders();
-            if (providers == null || providers.Count == 0)
+            var handlers = pluginLoader.GetCommandHandlers();
+            if (handlers == null || handlers.Count == 0)
             {
                 return this;
             }
-
-            foreach (var provider in providers)
+            foreach (var handler in handlers)
             {
-                var commandKeys = provider.SupportCommands();
-                foreach (var commandKey in commandKeys)
-                {
-                    Register(commandKey);
-                }
+                var command = handler.Command;
+                Register(command);
             }
             return this;
         }
 
         public IDictionary<string, Command> Commands { get; set; }
 
-        public CommandRegistry Register(Command locate)
+        public CommandRegistry Register(Command command)
         {
-            if (locate == null)
+            if (command == null)
             {
-                throw new ArgumentNullException(nameof(locate));
+                throw new ArgumentNullException(nameof(command));
             }
 
-            if (Commands.ContainsKey(locate.LocateKey))
+            var locateKey = command.GetLocateKey();
+            if (Commands.ContainsKey(locateKey))
             {
-                throw new InvalidOperationException("command registered already: " + locate.LocateKey);
+                throw new InvalidOperationException("command registered already: " + locateKey);
             }
 
-            Commands[locate.LocateKey] = locate;
+            Commands[locateKey] = command;
             return this;
         }
     }

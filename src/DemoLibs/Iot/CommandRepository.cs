@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Demos.Iot.Commands;
 
-namespace Demos.Iot.Discovers
+namespace Demos.Iot
 {
-    public interface ICommandDiscover
+    public interface ICommandRepository
     {
         IList<Command> GetCommands(GetCommandsArgs args);
     }
@@ -17,44 +16,39 @@ namespace Demos.Iot.Discovers
         public string Action { get; set; }
     }
 
-    public class CommandDiscover : ICommandDiscover
+    public class CommandRepository : ICommandRepository
     {
         private readonly CommandRegistry _registry;
 
-        public CommandDiscover(CommandRegistry registry)
+        public CommandRepository(CommandRegistry registry)
         {
             _registry = registry ?? throw new ArgumentNullException(nameof(registry));
         }
 
         public IList<Command> GetCommands(GetCommandsArgs args)
         {
-            //if (args == null)
-            //{
-            //    throw new ArgumentNullException(nameof(args));
-            //}
-
-            var actionInfos = _registry.Commands.Values.AsEnumerable();
+            var query = _registry.Commands.Values.AsEnumerable();
             if (args == null)
             {
-                return actionInfos.ToList();
+                return query.ToList();
             }
 
             if (!string.IsNullOrWhiteSpace(args.Manufacturer))
             {
-                actionInfos = actionInfos.Where(x => x.Manufacturer.Equals(args.Manufacturer, StringComparison.OrdinalIgnoreCase));
+                query = query.Where(x => x.Manufacturer.Equals(args.Manufacturer, StringComparison.OrdinalIgnoreCase));
             }
 
             if (!string.IsNullOrWhiteSpace(args.Device))
             {
-                actionInfos = actionInfos.Where(x => x.Device.Equals(args.Device, StringComparison.OrdinalIgnoreCase));
+                query = query.Where(x => x.Device.Equals(args.Device, StringComparison.OrdinalIgnoreCase));
             }
 
             if (!string.IsNullOrWhiteSpace(args.Action))
             {
-                actionInfos = actionInfos.Where(x => x.Action.Equals(args.Action, StringComparison.OrdinalIgnoreCase));
+                query = query.Where(x => x.Action.Equals(args.Action, StringComparison.OrdinalIgnoreCase));
             }
 
-            return actionInfos.ToList();
+            return query.ToList();
         }
     }
 }
